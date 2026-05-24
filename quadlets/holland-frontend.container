@@ -5,7 +5,7 @@ After=holland-network.service holland-backend.service
 
 [Container]
 ContainerName=holland-frontend
-Image=localhost/holland-frontend:latest
+Image=ghcr.io/sebag90/holland-frontend:latest
 Network=holland.network
 PublishPort=8080:80
 

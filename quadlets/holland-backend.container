@@ -5,7 +5,7 @@ After=holland-network.service holland-db.service
 
 [Container]
 ContainerName=holland-backend
-Image=localhost/holland-backend:latest
+Image=ghcr.io/sebag90/holland-backend:latest
 Network=holland.network
 Volume=holland-uploads.volume:/data/uploads
 # Mount your htpasswd file (bcrypt, generated with `htpasswd -B`):
