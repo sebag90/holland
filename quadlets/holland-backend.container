@@ -1,0 +1,23 @@
+[Unit]
+Description=Holland Backend (FastAPI)
+Requires=holland-network.service holland-db.service
+After=holland-network.service holland-db.service
+
+[Container]
+ContainerName=holland-backend
+Image=localhost/holland-backend:latest
+Network=holland.network
+Volume=holland-uploads.volume:/data/uploads
+# Mount your htpasswd file (bcrypt, generated with `htpasswd -B`):
+Volume=/etc/holland/htpasswd:/etc/holland/htpasswd:ro,Z
+Environment=DATABASE_URL=postgresql+psycopg://holland:holland@holland-db:5432/holland
+Environment=JWT_SECRET=change-me-in-production
+Environment=UPLOAD_DIR=/data/uploads
+Environment=HTPASSWD_FILE=/etc/holland/htpasswd
+PublishPort=8000:8000
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

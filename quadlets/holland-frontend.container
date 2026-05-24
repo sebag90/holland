@@ -1,0 +1,16 @@
+[Unit]
+Description=Holland Frontend (nginx)
+Requires=holland-network.service holland-backend.service
+After=holland-network.service holland-backend.service
+
+[Container]
+ContainerName=holland-frontend
+Image=localhost/holland-frontend:latest
+Network=holland.network
+PublishPort=8080:80
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

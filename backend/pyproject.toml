@@ -1,0 +1,20 @@
+[project]
+name = "holland-backend"
+version = "0.1.0"
+description = "Vacation home management backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "sqlalchemy>=2.0",
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.8",
+    "pydantic-settings>=2.4",
+    "bcrypt>=4.2",
+    "pyjwt>=2.9",
+    "python-multipart>=0.0.9",
+    "email-validator>=2.2",
+]
+
+[tool.uv]
+package = false

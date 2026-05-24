@@ -1,0 +1,8 @@
+[Unit]
+Description=Holland internal network
+
+[Network]
+NetworkName=holland-net
+
+[Install]
+WantedBy=default.target
