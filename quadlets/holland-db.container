@@ -1,20 +1,16 @@
 [Unit]
 Description=Holland Postgres
-Requires=holland-network.service
-After=holland-network.service
 
 [Container]
 ContainerName=holland-db
 Image=docker.io/library/postgres:16
-Network=holland.network
 Volume=holland-db.volume:/var/lib/postgresql/data
-Environment=POSTGRES_USER=holland
-Environment=POSTGRES_DB=holland
-# Override secret in a drop-in / EnvironmentFile in production!
-Environment=POSTGRES_PASSWORD=holland
-PublishPort=5432:5432
+
 HealthCmd=pg_isready -U holland
 HealthInterval=10s
+
+Pod=holland.pod
+EnvironmentFile=/home/seba/containers_data/holland/db.env
 
 [Service]
 Restart=always

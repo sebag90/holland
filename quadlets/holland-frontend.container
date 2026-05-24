@@ -1,13 +1,18 @@
 [Unit]
 Description=Holland Frontend (nginx)
-Requires=holland-network.service holland-backend.service
-After=holland-network.service holland-backend.service
 
 [Container]
 ContainerName=holland-frontend
 Image=ghcr.io/sebag90/holland-frontend:latest
-Network=holland.network
-PublishPort=8080:80
+
+Pod=holland.pod
+
+Label=traefik.enable=true
+Label=traefik.http.routers.holland.rule=Host(`holland.giglis.eu`)
+Label=traefik.http.routers.holland.entrypoints=websecure
+Label=traefik.http.routers.holland.tls=true
+Label=traefik.http.services.holland.loadbalancer.server.port=80
+Label=traefik.http.routers.holland.tls.certresolver=letsencrypt
 
 [Service]
 Restart=always
