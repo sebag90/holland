@@ -21,7 +21,9 @@ export default function CalendarGrid({ month, bookings, userId, onDayClick, onBo
 
   function bookingsForDay(date) {
     const s = toISO(date)
-    return bookings.filter(b => b.start_date <= s && b.end_date > s)
+    // Inclusive of the departure day so the last night is visible in the overview.
+    // Backend keeps end-exclusive semantics for overlap (check-out & check-in may share a day).
+    return bookings.filter(b => b.start_date <= s && b.end_date >= s)
   }
 
   return (

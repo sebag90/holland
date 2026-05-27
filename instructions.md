@@ -47,3 +47,9 @@ in the todo: one slight change: the beschreibung field should be there by defaul
 ok now let's take a look at the forum/new page: the add a poll with a checkbox is not very intuitive and can be overseen, instead after the body of the
  thread make a light separation horizontal line and split the view 50% in one half you can upload a file and in the other half the button to add a poll. a
  popup will show up with the options to add the poll (what currently happens when clicking on the checkbox)
+
+
+## 5:
+we will address 2 problems in the frontend:
+* bookings currently only show until the day before departure, it would be better if the last day also is shown in the overview of the calendar
+* the frontend needs to be reactive to work with telephones screens

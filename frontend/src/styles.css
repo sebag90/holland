@@ -262,5 +262,53 @@ label { display: block; margin: 10px 0 4px; font-size: 0.9rem; color: var(--mute
   .thread-extras { grid-template-columns: 1fr; }
 }
 
+/* ----- Mobile / tablet responsiveness ----- */
+@media (max-width: 720px) {
+  main { padding: 12px; }
+  .card { padding: 14px; margin-bottom: 14px; }
+
+  header.topbar {
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  header.topbar h1 { font-size: 1.05rem; }
+  header.topbar nav { gap: 12px; order: 3; flex-basis: 100%; font-size: 0.95rem; }
+  header.topbar .user { font-size: 0.8rem; }
+
+  .row { flex-direction: column; gap: 8px; }
+
+  .cal-header { flex-wrap: wrap; gap: 8px; }
+  .cal-header h2 { font-size: 1.1rem; flex: 1 1 100%; text-align: center; order: -1; }
+  .cal-header button { padding: 6px 10px; font-size: 0.9rem; }
+
+  .cal-cell { min-height: 56px; padding: 2px; font-size: 0.7rem; }
+  .cal-cell .day-num { font-size: 0.75rem; }
+  .cal-cell .booking-chip { font-size: 0.62rem; padding: 1px 3px; }
+  .cal-dow { font-size: 0.7rem; }
+
+  .thread-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+  .modal { max-width: calc(100vw - 24px); margin: 12px; padding: 16px; }
+  .modal-actions { flex-wrap: wrap; }
+  .kind-toggle { flex-direction: column; }
+
+  .todo-item { flex-wrap: wrap; }
+  .todo-item .todo-row { flex-wrap: wrap; gap: 6px; }
+  .todo-item .todo-meta { flex-basis: 100%; order: 3; }
+
+  .legend { font-size: 0.8rem; gap: 10px; }
+}
+
+@media (max-width: 420px) {
+  header.topbar h1 { font-size: 0.95rem; }
+  header.topbar nav { gap: 8px; font-size: 0.9rem; }
+  .cal-cell { min-height: 48px; }
+  .cal-cell .booking-chip { font-size: 0.58rem; }
+  /* Single-letter weekday names on very narrow screens */
+  .cal-dow { font-size: 0; }
+  .cal-dow::first-letter { font-size: 0.75rem; }
+}
+
 .auth-wrap { max-width: 380px; margin: 80px auto; }
 .center { text-align: center; }
