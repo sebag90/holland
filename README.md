@@ -2,7 +2,7 @@
 
 A simple tool for up to 5 people to manage a shared vacation home:
 
-- **Kalender**: book stays (internal vs external), overlap-protected
+- **Kalender**: book stays (internal vs external)  
 - **Forum**: threads with replies, polls, image & document uploads
 - **TO-DO**: shared task list, everyone can add / tick / edit / delete
 - **Homepage**: current-month overview + latest threads

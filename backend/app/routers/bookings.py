@@ -9,15 +9,6 @@ from ..auth import get_current_user
 router = APIRouter(prefix="/api/bookings", tags=["bookings"])
 
 
-def _overlap_query(db: Session, start: date, end: date, exclude_id: int | None = None):
-    q = db.query(models.Booking).filter(
-        and_(models.Booking.start_date < end, models.Booking.end_date > start)
-    )
-    if exclude_id:
-        q = q.filter(models.Booking.id != exclude_id)
-    return q
-
-
 def _can_modify(b: models.Booking, user: models.User) -> bool:
     # external: anyone can modify; internal: only creator
     return b.kind == "external" or b.user_id == user.id
@@ -48,8 +39,6 @@ def create_booking(
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
     if data.kind not in ("internal", "external"):
         raise HTTPException(status_code=400, detail="Invalid kind")
-    if _overlap_query(db, data.start_date, data.end_date).first():
-        raise HTTPException(status_code=409, detail="Booking overlaps an existing one")
     b = models.Booking(user_id=user.id, **data.model_dump())
     db.add(b)
     db.commit()
@@ -68,11 +57,11 @@ def update_booking(
     if not b:
         raise HTTPException(status_code=404)
     if not _can_modify(b, user):
-        raise HTTPException(status_code=403, detail="Only the creator can modify internal bookings")
+        raise HTTPException(
+            status_code=403, detail="Only the creator can modify internal bookings"
+        )
     if data.start_date >= data.end_date:
         raise HTTPException(status_code=400, detail="end_date must be after start_date")
-    if _overlap_query(db, data.start_date, data.end_date, exclude_id=b.id).first():
-        raise HTTPException(status_code=409, detail="Booking overlaps an existing one")
     b.start_date = data.start_date
     b.end_date = data.end_date
     b.kind = data.kind
@@ -92,7 +81,9 @@ def delete_booking(
     if not b:
         raise HTTPException(status_code=404)
     if not _can_modify(b, user):
-        raise HTTPException(status_code=403, detail="Only the creator can delete internal bookings")
+        raise HTTPException(
+            status_code=403, detail="Only the creator can delete internal bookings"
+        )
     db.delete(b)
     db.commit()
     return {"ok": True}
